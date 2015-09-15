@@ -3,7 +3,7 @@ A simple text editor with font options.
 """
 
 import sys
-from PyQt4 import QtGui
+from PyQt4 import QtGui, QtCore
 
 class Editor(QtGui.QMainWindow):
 	
@@ -15,6 +15,8 @@ class Editor(QtGui.QMainWindow):
 		self.text = QtGui.QTextEdit(self)
 		self.setCentralWidget(self.text)
 		self.setWindowTitle("EnText")
+		# self.setAttribute(QtCore.Qt.WA_TranslucentBackground)
+		self.setWindowOpacity(0.85)
 		
 		menubar = self.menuBar()
 		fileMenu = menubar.addMenu('&File')
@@ -61,7 +63,8 @@ class Editor(QtGui.QMainWindow):
 	def fileSaver(self):
 		savename = QtGui.QFileDialog.getSaveFileName(self, 'Save File')
 		outfile = open(savename, 'w')
-		data = self.txt.toPlainText()
+		data = self.text.toPlainText()
+		print data
 		outfile.write(data)
 		outfile.close()
 			
